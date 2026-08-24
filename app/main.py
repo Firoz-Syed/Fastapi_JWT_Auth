@@ -1,5 +1,6 @@
 from fastapi import Depends, FastAPI, HTTPException, status
 from sqlalchemy.orm import Session
+from fastapi.middleware.cors import CORSMiddleware
 
 from .auth import (
     create_access_token,
@@ -19,6 +20,14 @@ app = FastAPI(
     version="1.0.0",
 )
 
+# CORS configuration for Flutter Web
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def root():
